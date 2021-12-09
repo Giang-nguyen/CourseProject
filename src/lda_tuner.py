@@ -1,5 +1,4 @@
-from csv import DictReader
-from operator import mod
+from joblib import dump
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation, TruncatedSVD
@@ -20,4 +19,7 @@ def find_best_model(dataset_dir, search_params, vectorizer):
     best_model = model.best_estimator_
     print("Best Model's Params: ", model.best_params_)
     lda_output = best_model.transform(vectorized_data)
-    return best_model, lda_output
+    print('Saving vector, model, and output')
+    dump(vectorizer, utils.VECTOR_DIR)
+    dump(best_model, utils.MODEL_DIR)
+    dump(lda_output, utils.OUTPUT_DIR)

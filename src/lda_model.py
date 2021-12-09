@@ -7,6 +7,7 @@ import numpy as np
 import json
 import random
 import utils
+from joblib import dump, load
 
 
 def similar_documents(text, vectorizer, model, doc_topic_probs, documents, top_n=5):
@@ -15,13 +16,3 @@ def similar_documents(text, vectorizer, model, doc_topic_probs, documents, top_n
     doc_ids = np.argsort(dists)[:top_n]
     return doc_ids, np.take(documents, doc_ids)
 
-
-def train_model(data, vectorizer, n_components, random_state):
-    vectorized_data = vectorizer.fit_transform(data)
-    model = LatentDirichletAllocation(n_components=n_components, random_state=random_state)
-    model.fit(vectorized_data)
-    print("Model's:")
-    print(model)
-    output = model.transform(vectorized_data)
-    return model, output
-    
