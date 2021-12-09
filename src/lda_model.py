@@ -15,4 +15,3 @@ def similar_documents(text, vectorizer, model, doc_topic_probs, documents, top_n
     dists = euclidean_distances(topics.reshape(1, -1), doc_topic_probs)[0]
     doc_ids = np.argsort(dists)[:top_n]
     return doc_ids, np.take(documents, doc_ids)
-
