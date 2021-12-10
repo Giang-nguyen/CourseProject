@@ -11,7 +11,9 @@ import utils
 
 
 def find_best_model(dataset_dir, search_params, vectorizer):
-    corpus = utils.load_job_description(dataset_dir)
+    print('Loading dataset ...')
+    corpus = utils.load_csv_column(dataset_dir, 'jobDescription')
+    print('Training model ...')
     vectorized_data = vectorizer.fit_transform(corpus)
     lda= LatentDirichletAllocation(random_state=1)
     model = GridSearchCV(lda, param_grid=search_params)

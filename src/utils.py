@@ -8,8 +8,19 @@ import spacy
 
 
 def load_job_description(dataset):
-    jobs = pd.read_csv(dataset, encoding='utf-8')
-    return jobs['jobDescription'].drop_duplicates().dropna().apply(lambda x: clean(x)).to_list()
+    df_data = pd.read_csv(dataset, encoding='utf-8')
+    return df_data['jobDescription'].drop_duplicates().dropna().apply(lambda x: clean(x)).to_list()
+
+
+def load_skill_description(dataset):
+    df_data = pd.read_csv(dataset, encoding='utf-8')
+    return df_data.loc[:, ['title', 'jobSkill']].drop_duplicates().dropna().apply(lambda row: clean_skill_descriptions(row), axis=1)
+
+
+def clean_skill_descriptions(row):
+    row['title'] = clean(row['title'])
+    return row
+
 
 
 def clean(text):
@@ -18,7 +29,7 @@ def clean(text):
     # Remove numbers
     new_text = re.sub(r'[0-9]+', '', new_text)
     #new_text = lemmatization(new_text)
-    return new_text
+    return new_text.encode('utf-8')
 
 
 nlp = spacy.load('en_core_web_sm', disable=['parser', 'ner'])
@@ -38,3 +49,4 @@ ROOT = 'model'
 MODEL_DIR = os.path.join(ROOT, 'best_model.joblib')
 OUTPUT_DIR = os.path.join(ROOT, 'output.joblib')
 VECTOR_DIR = os.path.join(ROOT, 'vector.joblib')
+SKILL_OUTPUT_DIR = os.path.join(ROOT, 'skill_description.joblib')
