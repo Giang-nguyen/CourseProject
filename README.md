@@ -4,4 +4,6 @@ Please fork this repository and paste the github link of your fork on Microsoft 
 
 Project name: Jobs to Skills 
 
+Note: As the video is too large, we uploaded the presentation to university's google drive. please log in via your Illinois Google account to access the video.
+
 Link to presentation video: https://drive.google.com/file/d/1CzbreNy1q-gSAgENLixJmE-IadpZdJpG/view?usp=sharing
